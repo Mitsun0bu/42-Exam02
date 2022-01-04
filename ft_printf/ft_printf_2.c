@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_1.c                                      :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/02 14:27:02 by lucas             #+#    #+#             */
-/*   Updated: 2022/01/03 12:57:31 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/01/03 11:59:09 by lucas             #+#    #+#             */
+/*   Updated: 2022/01/03 12:57:32 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	ft_convert_arg(char c, va_list args_lst)
 
 void	ft_print_s(char *s)
 {
-	int	i;
+	int i;
 
 	if (!s)
 	{
-		write(1, "(null)", 6);
+		write (1, "(null)", 6);
 		return ;
 	}
 	i = -1;
@@ -93,7 +93,7 @@ void	ft_print_nb(long long nb, char *base, long long base_size)
 
 int		ft_arg_len(char c, va_list args_copy)
 {
-	char *s;
+	char	*s;
 
 	if (c == 's')
 	{
@@ -111,26 +111,26 @@ int		ft_arg_len(char c, va_list args_copy)
 
 int		ft_strlen(char *s)
 {
-	int	i = 0;
+	int i = 0;
 
-	while (s[i] != '\0')
+	while (s[i])
 		i++;
 	return (i);
 }
 
 int		ft_len_nb(long long nb, long long base_size)
 {
-	int	len;
+	int len;
 
 	len = 0;
 	if (nb < 0)
 	{
-		nb = -nb;
 		len ++;
+		nb = -nb;
 	}
 	if (nb == 0)
 		len = 1;
-	while (nb > 0)
+	while  (nb > 0)
 	{
 		nb = nb / base_size;
 		len ++;
