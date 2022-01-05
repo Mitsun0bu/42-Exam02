@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 18:46:53 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/05 19:57:34 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/01/05 13:18:28 by llethuil          #+#    #+#             */
+/*   Updated: 2022/01/05 19:57:36 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <limits.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 char	*get_next_line(int fd);
 char	*get_line(char *line, char *buff, int fd);
@@ -77,7 +77,7 @@ int		ft_strlen(char *s)
 	if (!s)
 		return (0);
 	while(s[i])
-		i ++;
+		i++;
 	return (i);
 }
 
@@ -88,7 +88,7 @@ int		ft_position_nl(char *s)
 	i = 0;
 	if (!s)
 		return (-1);
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] == '\n')
 			return (i);
@@ -96,7 +96,6 @@ int		ft_position_nl(char *s)
 	}
 	return (-1);
 }
-
 char	*ft_strjoin(char *line, char *buff)
 {
 	char	*joined;
@@ -112,11 +111,11 @@ char	*ft_strjoin(char *line, char *buff)
 	if (!joined)
 		return (NULL);
 	i_l = -1;
-	while(line[++i_l])
+	while (line[++i_l])
 		joined[i_l] = line[i_l];
-	free(line);
+	free (line);
 	i_b = -1;
-	while(buff[++i_b])
+	while (buff[++i_b])
 	{
 		joined[i_l++] = buff[i_b];
 		if (buff[i_b] == '\n')
@@ -125,3 +124,4 @@ char	*ft_strjoin(char *line, char *buff)
 	joined[i_l] = '\0';
 	return (joined);
 }
+

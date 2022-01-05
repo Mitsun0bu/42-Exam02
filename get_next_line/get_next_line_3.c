@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 18:46:53 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/05 19:57:34 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/01/05 17:38:20 by llethuil          #+#    #+#             */
+/*   Updated: 2022/01/05 18:17:51 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <limits.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 char	*get_next_line(int fd);
 char	*get_line(char *line, char *buff, int fd);
@@ -23,8 +23,8 @@ char	*ft_strjoin(char *line, char *buff);
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE + 1] = {};
-	char		*line;
+	static char buff[BUFFER_SIZE + 1] = {};
+	char *line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -41,8 +41,8 @@ char	*get_next_line(int fd)
 
 char	*get_line(char *line, char *buff, int fd)
 {
-	int		read_ret;
-	char	*buff_rest;
+	int	read_ret;
+	char *buff_rest;
 
 	read_ret = 1;
 	while (read_ret > 0)
@@ -54,14 +54,14 @@ char	*get_line(char *line, char *buff, int fd)
 		{
 			buff_rest = &buff[ft_position_nl(buff) + 1];
 			while (*buff_rest)
-				*buff++ = *buff_rest++;
+				*buff ++ = *buff_rest ++;
 			*buff = '\0';
 			return (line);
 		}
 		read_ret = read(fd, buff, BUFFER_SIZE);
 		if (read_ret == -1)
 		{
-			free(line);
+			free (line);
 			return (NULL);
 		}
 		buff[read_ret] = '\0';
@@ -76,7 +76,7 @@ int		ft_strlen(char *s)
 	i = 0;
 	if (!s)
 		return (0);
-	while(s[i])
+	while (s[i])
 		i ++;
 	return (i);
 }
@@ -88,7 +88,7 @@ int		ft_position_nl(char *s)
 	i = 0;
 	if (!s)
 		return (-1);
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] == '\n')
 			return (i);
@@ -104,12 +104,12 @@ char	*ft_strjoin(char *line, char *buff)
 	int		i_l;
 	int		i_b;
 
-	if (ft_position_nl(buff) != -1)
+	if(ft_position_nl(buff) != -1)
 		buff_size = ft_position_nl(buff) + 1;
 	else
 		buff_size = ft_strlen(buff);
 	joined = malloc(sizeof(char) * (ft_strlen(line) + buff_size + 1));
-	if (!joined)
+	if(!joined)
 		return (NULL);
 	i_l = -1;
 	while(line[++i_l])

@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 18:46:53 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/05 19:57:34 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/01/05 12:54:43 by llethuil          #+#    #+#             */
+/*   Updated: 2022/01/05 14:29:28 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <limits.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 char	*get_next_line(int fd);
 char	*get_line(char *line, char *buff, int fd);
@@ -23,7 +23,7 @@ char	*ft_strjoin(char *line, char *buff);
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE + 1] = {};
+	static char buff[BUFFER_SIZE + 1] = {};
 	char		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
@@ -41,11 +41,11 @@ char	*get_next_line(int fd)
 
 char	*get_line(char *line, char *buff, int fd)
 {
-	int		read_ret;
-	char	*buff_rest;
+	int	read_ret;
+	char *buff_rest;
 
 	read_ret = 1;
-	while (read_ret > 0)
+	while(read_ret > 0)
 	{
 		line = ft_strjoin(line, buff);
 		if (!line)
@@ -61,7 +61,7 @@ char	*get_line(char *line, char *buff, int fd)
 		read_ret = read(fd, buff, BUFFER_SIZE);
 		if (read_ret == -1)
 		{
-			free(line);
+			free (line);
 			return (NULL);
 		}
 		buff[read_ret] = '\0';
@@ -71,13 +71,13 @@ char	*get_line(char *line, char *buff, int fd)
 
 int		ft_strlen(char *s)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!s)
 		return (0);
-	while(s[i])
-		i ++;
+	while (s[i])
+		i++;
 	return (i);
 }
 
@@ -88,7 +88,7 @@ int		ft_position_nl(char *s)
 	i = 0;
 	if (!s)
 		return (-1);
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] == '\n')
 			return (i);
@@ -99,10 +99,10 @@ int		ft_position_nl(char *s)
 
 char	*ft_strjoin(char *line, char *buff)
 {
-	char	*joined;
-	int		buff_size;
-	int		i_l;
-	int		i_b;
+	char *joined;
+	int buff_size;
+	int	i_l;
+	int	i_b;
 
 	if (ft_position_nl(buff) != -1)
 		buff_size = ft_position_nl(buff) + 1;
@@ -112,11 +112,11 @@ char	*ft_strjoin(char *line, char *buff)
 	if (!joined)
 		return (NULL);
 	i_l = -1;
-	while(line[++i_l])
+	while (line[++i_l])
 		joined[i_l] = line[i_l];
 	free(line);
 	i_b = -1;
-	while(buff[++i_b])
+	while (buff[++i_b])
 	{
 		joined[i_l++] = buff[i_b];
 		if (buff[i_b] == '\n')
