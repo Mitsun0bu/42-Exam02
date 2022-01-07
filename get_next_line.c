@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_0.c                                  :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 17:02:15 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/05 18:17:53 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/01/06 09:38:47 by llethuil          #+#    #+#             */
+/*   Updated: 2022/01/06 10:20:01 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <fcntl.h>
-# include <limits.h>
-# include <stdlib.h>
-# include <unistd.h>
+#include <limits.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 char	*get_next_line(int fd);
-char	*ft_get_line(char *line, char *buff, int fd);
-int		ft_strlen(char *str);
-int		ft_position_nl(char *str);
+char	*get_line(char *line, char *buff, int fd);
+int		ft_strlen(char *s);
+int		ft_position_nl(char *s);
 char	*ft_strjoin(char *line, char *buff);
 
 char	*get_next_line(int fd)
 {
-	static char	buff[BUFFER_SIZE + 1] = {};
+	static char buff[BUFFER_SIZE + 1] = {};
 	char		*line;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
@@ -32,20 +32,20 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	line[0] = 0;
-	line = ft_get_line(line, buff, fd);
+	line = get_line(line, buff, fd);
 	if (line && ft_strlen(line))
 		return (line);
-	free (line);
+	free(line);
 	return (NULL);
 }
 
-char	*ft_get_line(char *line, char *buff, int fd)
+char	*get_line(char *line, char *buff, int fd)
 {
-	int		read_ret;
 	char	*buff_rest;
+	int		read_ret;
 
 	read_ret = 1;
-	while (read_ret > 0)
+	while(read_ret > 0)
 	{
 		line = ft_strjoin(line, buff);
 		if (!line)
@@ -53,7 +53,7 @@ char	*ft_get_line(char *line, char *buff, int fd)
 		if (ft_position_nl(buff) != -1)
 		{
 			buff_rest = &buff[ft_position_nl(buff) + 1];
-			while (*buff_rest)
+			while(*buff_rest)
 				*buff++ = *buff_rest++;
 			*buff = '\0';
 			return (line);
@@ -61,7 +61,7 @@ char	*ft_get_line(char *line, char *buff, int fd)
 		read_ret = read(fd, buff, BUFFER_SIZE);
 		if (read_ret == -1)
 		{
-			free (line);
+			free(line);
 			return (NULL);
 		}
 		buff[read_ret] = '\0';
@@ -69,30 +69,30 @@ char	*ft_get_line(char *line, char *buff, int fd)
 	return (line);
 }
 
-int		ft_strlen(char *str)
+int		ft_strlen(char *s)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!s)
 		return (0);
-	while (str[i])
-		i++;
+	while(s[i])
+		i ++;
 	return (i);
 }
 
-int		ft_position_nl(char *str)
+int		ft_position_nl(char *s)
 {
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!s)
 		return (-1);
-	while (str[i])
+	while(s[i])
 	{
-		if (str[i] == '\n')
+		if (s[i] == '\n')
 			return (i);
-		i++;
+		i ++;
 	}
 	return (-1);
 }
@@ -116,12 +116,13 @@ char	*ft_strjoin(char *line, char *buff)
 		joined[i_l] = line[i_l];
 	free(line);
 	i_b = -1;
-	while (buff[++i_b])
+	while(buff[++i_b])
 	{
 		joined[i_l++] = buff[i_b];
 		if (buff[i_b] == '\n')
-			break ;
+			break;
 	}
 	joined[i_l] = '\0';
 	return (joined);
 }
+

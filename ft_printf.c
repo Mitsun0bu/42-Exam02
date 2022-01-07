@@ -5,46 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 16:07:49 by llethuil          #+#    #+#             */
-/*   Updated: 2022/01/05 16:29:31 by llethuil         ###   ########lyon.fr   */
+/*   Created: 2022/01/06 10:24:06 by llethuil          #+#    #+#             */
+/*   Updated: 2022/01/06 10:42:58 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdarg.h>
 
-int	ft_printf(const char *format, ...);
+int	ft_printf(char *format, ...);
 int	ft_convert_arg(char c, va_list arg_lst);
 int	ft_putchar(char c);
 int	ft_print_s(char *s);
 int	ft_print_nb(long long nb, char *base, long long base_size);
 
-int	ft_printf(const char *format, ...)
+int	ft_printf(char *format, ...)
 {
-	int		len;
+	int	len;
 	va_list arg_lst;
 
-	va_start(arg_lst, format);
 	len = 0;
-	while (*format)
+	va_start(arg_lst, format);
+	while(*format)
 	{
 		if (*format != '%')
 			len += ft_putchar(*format);
 		else
 		{
-			len += ft_convert_arg(*(format + 1), arg_lst);
+			len+= ft_convert_arg(*(format + 1), arg_lst);
 			format ++;
 		}
 		format ++;
 	}
 	va_end(arg_lst);
 	return (len);
-}
-
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (1);
 }
 
 int	ft_convert_arg(char c, va_list arg_lst)
@@ -59,6 +53,12 @@ int	ft_convert_arg(char c, va_list arg_lst)
 		return (0);
 }
 
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
 int	ft_print_s(char *s)
 {
 	int	len;
@@ -69,9 +69,9 @@ int	ft_print_s(char *s)
 		write(1, "(null)", 6);
 		return (6);
 	}
-	while(s[++len])
+	while (s[++len])
 		ft_putchar(s[len]);
-	return(len);
+	return (len);
 }
 
 int	ft_print_nb(long long nb, char *base, long long base_size)
