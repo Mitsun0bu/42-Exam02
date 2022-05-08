@@ -6,7 +6,7 @@
 /*   By: llethuil <llethuil@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 17:53:47 by llethuil          #+#    #+#             */
-/*   Updated: 2022/05/06 17:53:49 by llethuil         ###   ########lyon.fr   */
+/*   Updated: 2022/05/08 21:31:24 by llethuil         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ int	ft_print_nb(long long nb, char *base, long long base_size);
 
 int	ft_printf(char *format, ...)
 {
-	int		len;
+	int		len = 0;
 	va_list	arg_lst;
 
-	len = 0;
 	va_start(arg_lst, format);
 	while (*format)
 	{
@@ -61,9 +60,8 @@ int	ft_convert_arg(char c, va_list arg_lst)
 
 int	ft_print_s(char *s)
 {
-	int	len;
+	int	len = -1;
 
-	len = -1;
 	if (!s)
 	{
 		write(1, "(null)", 6);
@@ -76,23 +74,21 @@ int	ft_print_s(char *s)
 
 int	ft_print_nb(long long nb, char *base, long long base_size)
 {
-	int			len;
-	long long	nbr;
+	int			len = 0;
+	long long	nbr = nb;
 
-	len = 0;
-	nbr = nb;
 	if (nbr < 0)
 	{
 		len += ft_putchar('-');
-		nb = -nb;
 		nbr = -nbr;
+		nb = -nb;
 	}
 	if (nbr == 0)
 		len = 1;
 	while (nbr > 0)
 	{
-		nbr = nbr / base_size;
 		len ++;
+		nbr = nbr / base_size;
 	}
 	if (nb >= base_size)
 		ft_print_nb((nb / base_size), base, base_size);
