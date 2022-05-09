@@ -7,4 +7,4 @@ At the time I passed it, it was required to do :
 
 Union and inter are still present in exam_02, but it now features exercises from C Piscine (no more ft_printf or get_next_line).  
 Here are my solutions to these two problems.
-Feel free to have a look at it but please practice before the exam in order to learn how the logic works :). 
+Feel free to have a look at it but please practice before the exam in order to learn how the logic works :)
